@@ -1,3 +1,4 @@
+
 import random
 
 # Function to draw the hangman
