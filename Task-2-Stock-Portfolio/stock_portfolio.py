@@ -1,149 +1,108 @@
 
 # Task 2: Stock Portfolio Tracker
-# Datheon Python Programming Internship
 
-import os
-
-# Available stocks and sample prices (in rupees)
-STOCKS = {
-    "AAPL": 180.0,
-    "TSLA": 250.0,
-    "GOOGL": 150.0,
-    "MSFT": 420.0
+# Predefined sample prices (not live market prices)
+stock_prices = {
+    "AAPL": 180.00,
+    "TSLA": 250.00,
+    "GOOGL": 150.00,
+    "MSFT": 420.00
 }
 
-# Dictionary to store stock quantities
 portfolio = {}
 
+print("===== STOCK PORTFOLIO TRACKER =====")
+print("\nAvailable stocks and sample prices:")
 
-def display_available_stocks():
-    """Display available stocks and their sample prices."""
-    print("\nAvailable stocks and sample prices:")
-    for ticker, price in STOCKS.items():
-        print(f"{ticker} - Rs. {price:.2f}")
+for symbol, price in stock_prices.items():
+    print(symbol, "- ₹", price)
 
+while True:
+    print("\n1. Add stock")
+    print("2. View portfolio")
+    print("3. Save portfolio to a text file")
+    print("4. Exit")
 
-def add_stock():
-    """Add shares to the portfolio."""
-    display_available_stocks()
+    choice = input("Enter your choice (1-4): ").strip()
 
-    ticker = input("\nEnter stock ticker: ").strip().upper()
+    if choice == "1":
+        symbol = input("Enter stock ticker: ").strip().upper()
 
-    if ticker not in STOCKS:
-        print("Stock not available. Choose a listed ticker.")
-        return
+        if symbol not in stock_prices:
+            print("Stock not available. Choose a listed ticker.")
+            continue
 
-    try:
-        quantity = int(input("Enter number of shares: "))
+        try:
+            quantity = int(input("Enter number of shares: "))
 
-        if quantity <= 0:
-            print("Please enter a quantity greater than zero.")
-            return
+            if quantity <= 0:
+                print("Shares must be greater than zero.")
+                continue
 
-    except ValueError:
-        print("Invalid quantity. Please enter a whole number.")
-        return
+        except ValueError:
+            print("Please enter a valid whole number.")
+            continue
 
-    # Add to existing quantity if the stock is already present
-    portfolio[ticker] = portfolio.get(ticker, 0) + quantity
+        portfolio[symbol] = portfolio.get(symbol, 0) + quantity
 
-    total_shares = portfolio[ticker]
-    holding_value = total_shares * STOCKS[ticker]
+        value = portfolio[symbol] * stock_prices[symbol]
 
-    print("\nStock added successfully!")
-    print(f"Total shares of {ticker}: {total_shares}")
-    print(f"Holding value: Rs. {holding_value:.2f}")
+        print("Stock added successfully!")
+        print("Total shares of", symbol, ":", portfolio[symbol])
+        print("Holding value: ₹", round(value, 2))
 
+    elif choice == "2":
+        if not portfolio:
+            print("Your portfolio is empty.")
+            continue
 
-def view_portfolio():
-    """Display all holdings and total portfolio value."""
-    print("\n===== YOUR PORTFOLIO =====")
+        total_value = 0
 
-    if not portfolio:
-        print("Your portfolio is empty.")
-        return
+        print("\n===== YOUR PORTFOLIO =====")
 
-    total_value = 0.0
+        for symbol, quantity in portfolio.items():
+            price = stock_prices[symbol]
+            value = quantity * price
+            total_value += value
 
-    for ticker, quantity in portfolio.items():
-        price = STOCKS[ticker]
-        holding_value = quantity * price
-        total_value += holding_value
+            print("\nTicker:", symbol)
+            print("Shares:", quantity)
+            print("Sample price: ₹", price)
+            print("Holding value: ₹", round(value, 2))
 
-        print(f"\nTicker: {ticker}")
-        print(f"Shares: {quantity}")
-        print(f"Sample price: Rs. {price:.2f}")
-        print(f"Holding value: Rs. {holding_value:.2f}")
+        print("\nTotal portfolio value: ₹", round(total_value, 2))
 
-    print(f"\nTotal portfolio value: Rs. {total_value:.2f}")
+    elif choice == "3":
+        if not portfolio:
+            print("Add at least one stock before saving.")
+            continue
 
+        total_value = 0
 
-def save_portfolio():
-    """Save portfolio details to a text file."""
-    filename = "portfolio.txt"
+        with open("portfolio.txt", "w") as file:
+            file.write("STOCK PORTFOLIO REPORT\n")
+            file.write("======================\n")
 
-    try:
-        with open(filename, "w", encoding="utf-8") as file:
-            file.write("STOCK PORTFOLIO TRACKER\n")
-            file.write("======================\n\n")
-
-            if not portfolio:
-                file.write("Your portfolio is empty.\n")
-            else:
-                total_value = 0.0
-
-                for ticker, quantity in portfolio.items():
-                    price = STOCKS[ticker]
-                    holding_value = quantity * price
-                    total_value += holding_value
-
-                    file.write(f"Ticker: {ticker}\n")
-                    file.write(f"Shares: {quantity}\n")
-                    file.write(f"Sample price: Rs. {price:.2f}\n")
-                    file.write(
-                        f"Holding value: Rs. {holding_value:.2f}\n\n"
-                    )
+            for symbol, quantity in portfolio.items():
+                price = stock_prices[symbol]
+                value = quantity * price
+                total_value += value
 
                 file.write(
-                    f"Total portfolio value: Rs. {total_value:.2f}\n"
+                    f"{symbol}: {quantity} shares x "
+                    f"₹{price:.2f} = ₹{value:.2f}\n"
                 )
 
-        print(f"Portfolio saved successfully to {os.path.abspath(filename)}")
+            file.write(
+                f"\nTotal portfolio value: ₹{total_value:.2f}\n"
+            )
 
-    except OSError as error:
-        print(f"Could not save portfolio: {error}")
+        print("Portfolio saved to portfolio.txt")
 
+    elif choice == "4":
+        print("Thank you for using Stock Portfolio Tracker!")
+        break
 
-def main():
-    """Run the stock portfolio tracker."""
-    print("===== STOCK PORTFOLIO TRACKER =====")
-
-    display_available_stocks()
-
-    while True:
-        print("\n1. Add stock")
-        print("2. View portfolio")
-        print("3. Save portfolio to a text file")
-        print("4. Exit")
-
-        choice = input("Enter your choice (1-4): ").strip()
-
-        if choice == "1":
-            add_stock()
-
-        elif choice == "2":
-            view_portfolio()
-
-        elif choice == "3":
-            save_portfolio()
-
-        elif choice == "4":
-            print("Thank you for using Stock Portfolio Tracker!")
-            break
-
-        else:
-            print("Invalid choice. Please enter a number from 1 to 4.")
-
-
-if __name__ == "__main__":
-    main()
+    else:
+        print("Invalid choice. Enter a number from 1 to 4.")
+        
