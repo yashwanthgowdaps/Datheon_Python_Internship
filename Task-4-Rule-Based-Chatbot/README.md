@@ -16,13 +16,14 @@ This project demonstrates fundamental Python programming concepts and basic conv
 
 - Greeting responses: Responds to greetings such as hello, hi, and hey.
 - Name identification: Tells the user the chatbot's name.
-- Simple conversation: Responds to basic conversational messages.
+- Simple conversation: Responds to messages such as "i am fine", "what can you do" and "what is your favourite colour" ("favorite color" also works).
 - Date and time: Displays the current date and time.
 - Help command: Lists the supported commands.
 - Thank-you responses: Responds to thank-you messages.
+- Flexible matching: Ignores capital letters and punctuation, so "Hello!" and "What's the time?" work.
 - Input validation: Handles empty messages.
 - Unknown input handling: Provides a default response when a message is not recognized.
-- Exit option: Ends the conversation when the user types bye, goodbye, exit, or quit.
+- Exit option: Ends the conversation when the user says bye, goodbye, exit, or quit (for example "ok bye"), and also on Ctrl+C or Ctrl+D.
 - Continuous interaction: Keeps running until the user exits.
 
 3. Technologies Used
@@ -30,6 +31,7 @@ This project demonstrates fundamental Python programming concepts and basic conv
 - Python 3
 - "random" module
 - "datetime" module
+- "re" module
 
 4. Python Concepts Used
 
@@ -37,8 +39,9 @@ This project demonstrates fundamental Python programming concepts and basic conv
 - Functions
 - Conditional statements ("if", "elif", "else")
 - "while" loop
-- Lists
+- Lists and sets
 - String methods such as "lower()" and "strip()"
+- Regular expressions ("re" module) to clean up the input
 - User input and output
 - Modules and imports
 - Basic input validation
@@ -96,6 +99,7 @@ Chatbot session ended. Thank you!
 
 - PyBot uses predefined rules rather than artificial intelligence or machine learning.
 - It recognizes only the messages covered by its programmed conditions.
+- Matching is keyword-based, so unusual phrasings may not be understood.
 - It cannot understand complex questions or generate unrestricted responses.
 - Its responses may vary for greetings because it selects from predefined alternatives.
 

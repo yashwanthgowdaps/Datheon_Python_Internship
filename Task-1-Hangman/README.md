@@ -7,10 +7,12 @@ Hangman is a word-guessing game developed using Python. The player guesses a hid
 Features
 
 - Random word selection
-- Hangman drawing
-- Input validation
+- Hangman drawing that builds up in seven stages (empty gallows to full figure)
+- Shows the letters you have already guessed
+- Input validation (one letter at a time)
 - Repeated-letter detection
 - Win and game-over messages
+- Exits cleanly on Ctrl+C or Ctrl+D
 
 Technologies Used
 
@@ -21,8 +23,10 @@ Python Concepts Used
 
 - Variables and lists
 - Loops and conditional statements
-- Functions
+- Functions and constants
+- Raw strings for the ASCII art
 - User input and validation
+- A "main" function with a "__name__" guard
 
 How to Run
 

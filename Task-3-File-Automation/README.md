@@ -13,7 +13,8 @@ Features
 - Supports PDFs, images, audio, videos, documents, spreadsheets, presentations, archives, and other file types.
 - Avoids overwriting existing files with the same name by generating a unique filename.
 - Handles errors during file operations.
-- Displays a summary of moved files, skipped files, and errors.
+- Skips subfolders, hidden files (names starting with ".") and the script itself.
+- Displays a summary of moved files, skipped items, and errors.
 - Allows the user to enter a folder path.
 
 Technologies Used
@@ -37,14 +38,14 @@ Folder Categories
 
 Folder| File types
 "PDF_Files"| PDF files
-"Images"| JPG, JPEG, PNG, GIF, WEBP
+"Images"| JPG, JPEG, PNG, GIF, BMP, WEBP
 "Audio_Files"| MP3, WAV, AAC, OGG
 "Video_Files"| MP4, MKV, AVI, MOV
-"Documents"| TXT, DOC, DOCX, RTF
+"Documents"| TXT, DOC, DOCX, ODT, RTF
 "Spreadsheets"| XLS, XLSX, CSV
 "Presentations"| PPT, PPTX
-"Archives"| ZIP, RAR, 7Z, TAR
-"Code_Files"| Python and other supported code files
+"Archives"| ZIP, RAR, 7Z, TAR, GZ
+"Code_Files"| PY, JAVA, C, CPP, HTML, CSS, JS
 "Other_Files"| File types not covered by the categories above
 
 The exact extensions supported depend on the categories defined in "file_organizer.py".
@@ -58,7 +59,7 @@ Requirements
 
 Steps
 
-1. Open "file_organizer.py" in Pydroid 3.
+1. Open "file_organizer.py" in Pydroid 3 (or run "python Task-3-File-Automation/file_organizer.py" on a computer).
 2. Run the program.
 3. Enter the path of the folder you want to organize.
 4. Wait for the program to finish.
@@ -69,6 +70,10 @@ Example Folder Path
 For Android:
 
 "/storage/emulated/0/Download/test_files"
+
+For a computer:
+
+"~/Downloads/test_files"
 
 Important: Test the program on a small sample folder first. The program moves files from their original locations, so use a backup when testing.
 
@@ -86,7 +91,7 @@ Moved: song.mp3 -> Audio_Files/
 
 ===== ORGANIZATION SUMMARY =====
 Files moved: 3
-Files skipped: 0
+Items skipped: 0
 Errors: 0
 Organization finished.
 

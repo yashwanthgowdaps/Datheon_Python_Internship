@@ -14,7 +14,8 @@ Features
 - Calculates the value of each stock holding.
 - Displays the total portfolio value.
 - Validates stock tickers and share quantities.
-- Saves portfolio details to "portfolio.txt".
+- Saves portfolio details to "portfolio.txt" (UTF-8, so the rupee symbol is safe on any system).
+- Uses one shared function to build the report, so the screen and the saved file always match.
 - Provides a menu-driven interface to view, save, and exit.
 
 Available Stocks
@@ -41,7 +42,7 @@ Python Concepts Used
 - Conditional statements
 - Loops
 - User input and validation
-- Exception handling
+- Exception handling (invalid input, Ctrl+C, file errors)
 - File handling
 
 How to Run
@@ -73,7 +74,7 @@ If you add 50 shares of AAPL at the sample price of ₹180 per share:
 - Stock ticker: AAPL
 - Number of shares: 50
 - Sample price per share: ₹180
-- Holding value: ₹9,000
+- Holding value: ₹9,000.00
 
 Output File
 
