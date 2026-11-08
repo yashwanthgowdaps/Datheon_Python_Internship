@@ -1,136 +1,138 @@
+# Task 1: Hangman
+# Datheon Python Programming Internship
 
 import random
 
-# Function to draw the hangman
-def draw_hangman(attempts):
-    stages = [
-        """
-         +---+
-         |   |
-         O   |
-        /|\\  |
-        / \\  |
-        =======
-        """,
-        """
-         +---+
-         |   |
-         O   |
-        /|\\  |
-        /    |
-        =======
-        """,
-        """
-         +---+
-         |   |
-         O   |
-        /|\\  |
-             |
-        =======
-        """,
-        """
-         +---+
-         |   |
-         O   |
-        /|   |
-             |
-        =======
-        """,
-        """
-         +---+
-         |   |
-         O   |
-        /    |
-             |
-        =======
-        """,
-        """
-         +---+
-         |   |
-         O   |
-             |
-             |
-        =======
-        """,
-        """
-         +---+
-         |   |
-             |
-             |
-             |
-        =======
-        """
-    ]
+MAX_ATTEMPTS = 6
 
-    print(stages[attempts])
+# Index = number of wrong guesses (0 to 6). Raw strings keep backslashes intact.
+STAGES = [
+    r"""
+     +---+
+     |   |
+         |
+         |
+         |
+    =======
+    """,
+    r"""
+     +---+
+     |   |
+     O   |
+         |
+         |
+    =======
+    """,
+    r"""
+     +---+
+     |   |
+     O   |
+     |   |
+         |
+    =======
+    """,
+    r"""
+     +---+
+     |   |
+     O   |
+    /|   |
+         |
+    =======
+    """,
+    r"""
+     +---+
+     |   |
+     O   |
+    /|\  |
+         |
+    =======
+    """,
+    r"""
+     +---+
+     |   |
+     O   |
+    /|\  |
+    /    |
+    =======
+    """,
+    r"""
+     +---+
+     |   |
+     O   |
+    /|\  |
+    / \  |
+    =======
+    """,
+]
+
+WORDS = ["python", "computer", "program", "developer", "keyboard"]
 
 
-# List of words
-words = ["python", "computer", "program", "developer", "keyboard"]
+def draw_hangman(attempts_left):
+    """Draw the hangman for the number of attempts still remaining."""
+    print(STAGES[MAX_ATTEMPTS - attempts_left])
 
-# Select a random word
-secret_word = random.choice(words)
 
-# Game variables
-guessed_letters = []
-attempts = 6
+def build_display(secret_word, guessed_letters):
+    """Return the word with unguessed letters hidden."""
+    return " ".join(
+        letter if letter in guessed_letters else "_" for letter in secret_word
+    )
 
-print("===== WELCOME TO HANGMAN =====")
 
-# Main game loop
-while attempts > 0:
+def has_won(secret_word, guessed_letters):
+    return all(letter in guessed_letters for letter in secret_word)
 
-    # Draw the hangman
-    draw_hangman(attempts)
 
-    # Display the word
-    display_word = ""
+def play():
+    secret_word = random.choice(WORDS)
+    guessed_letters = []
+    attempts = MAX_ATTEMPTS
 
-    for letter in secret_word:
-        if letter in guessed_letters:
-            display_word += letter + " "
+    print("===== WELCOME TO HANGMAN =====")
+
+    while attempts > 0 and not has_won(secret_word, guessed_letters):
+        draw_hangman(attempts)
+        print("Word:", build_display(secret_word, guessed_letters))
+        print("Attempts remaining:", attempts)
+        if guessed_letters:
+            print("Guessed letters:", ", ".join(sorted(guessed_letters)))
+
+        guess = input("Guess a single letter: ").lower().strip()
+
+        if len(guess) != 1 or not guess.isalpha():
+            print("Please enter only one letter.")
+            continue
+
+        if guess in guessed_letters:
+            print("You already guessed that letter!")
+            continue
+
+        guessed_letters.append(guess)
+
+        if guess in secret_word:
+            print("Correct guess!")
         else:
-            display_word += "_ "
+            attempts -= 1
+            print("Wrong guess!")
 
-    print("Word:", display_word)
-    print("Attempts remaining:", attempts)
-
-    # Check whether the player has won
-    if all(letter in guessed_letters for letter in secret_word):
-        print("Congratulations! You won!")
-        break
-
-    # Get the player's guess
-    guess = input("Guess a single letter: ").lower().strip()
-
-    # Validate the input
-    if len(guess) != 1 or not guess.isalpha():
-        print("Please enter only one letter.")
-        continue
-
-    # Check for repeated guesses
-    if guess in guessed_letters:
-        print("You already guessed that letter!")
-        continue
-
-    # Store the guessed letter
-    guessed_letters.append(guess)
-
-    # Check the guess
-    if guess in secret_word:
-        print("Correct guess!")
+    if has_won(secret_word, guessed_letters):
+        print("\nWord:", build_display(secret_word, guessed_letters))
+        print("Congratulations! You guessed the word:", secret_word)
     else:
-        attempts -= 1
-        print("Wrong guess!")
+        draw_hangman(0)
+        print("Game over!")
+        print("The correct word was:", secret_word)
+
+    print("Thanks for playing!")
 
 
-# Display the final result
-if all(letter in guessed_letters for letter in secret_word):
-    print("\nCongratulations! You guessed the word:", secret_word)
-else:
-    # Draw the complete hangman when the player loses
-    draw_hangman(0)
-    print("\nGame over!")
-    print("The correct word was:", secret_word)
+def main():
+    try:
+        play()
+    except (EOFError, KeyboardInterrupt):
+        print("\nGame cancelled. Goodbye!")
 
-print("Thanks for playing!")
+
+if __name__ == "__main__":
+    main()

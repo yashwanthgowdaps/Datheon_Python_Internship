@@ -1,29 +1,27 @@
+# Task 3: File Automation
+# Datheon Python Programming Internship
 
 import os
 import shutil
 
-# Task 3: File Automation
-# Datheon Python Programming Internship
+CATEGORIES = {
+    "Images": [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp"],
+    "PDF_Files": [".pdf"],
+    "Documents": [".txt", ".doc", ".docx", ".odt", ".rtf"],
+    "Code_Files": [".py", ".java", ".c", ".cpp", ".html", ".css", ".js"],
+    "Spreadsheets": [".csv", ".xls", ".xlsx"],
+    "Presentations": [".ppt", ".pptx"],
+    "Audio_Files": [".mp3", ".wav", ".aac", ".ogg"],
+    "Video_Files": [".mp4", ".mkv", ".avi", ".mov"],
+    "Archives": [".zip", ".rar", ".7z", ".tar", ".gz"],
+}
 
 
 def get_category(filename):
     """Return a folder name based on the file extension."""
-
     extension = os.path.splitext(filename)[1].lower()
 
-    categories = {
-        "Images": [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp"],
-        "PDF_Files": [".pdf"],
-        "Documents": [".txt", ".doc", ".docx", ".odt", ".rtf"],
-        "Code_Files": [".py", ".java", ".c", ".cpp", ".html", ".css", ".js"],
-        "Spreadsheets": [".csv", ".xls", ".xlsx"],
-        "Presentations": [".ppt", ".pptx"],
-        "Audio_Files": [".mp3", ".wav", ".aac", ".ogg"],
-        "Video_Files": [".mp4", ".mkv", ".avi", ".mov"],
-        "Archives": [".zip", ".rar", ".7z", ".tar", ".gz"]
-    }
-
-    for category, extensions in categories.items():
+    for category, extensions in CATEGORIES.items():
         if extension in extensions:
             return category
 
@@ -32,32 +30,23 @@ def get_category(filename):
 
 def get_unique_path(destination):
     """Avoid overwriting a file with the same name."""
-
     if not os.path.exists(destination):
         return destination
 
     folder = os.path.dirname(destination)
-    filename = os.path.basename(destination)
-    name, extension = os.path.splitext(filename)
+    name, extension = os.path.splitext(os.path.basename(destination))
 
     counter = 1
-
     while True:
-        new_name = f"{name}_{counter}{extension}"
-        new_path = os.path.join(folder, new_name)
-
+        new_path = os.path.join(folder, f"{name}_{counter}{extension}")
         if not os.path.exists(new_path):
             return new_path
-
         counter += 1
 
 
 def organize_files(folder_path):
     """Organize files into folders based on their types."""
-
-    folder_path = os.path.abspath(
-        os.path.expanduser(folder_path)
-    )
+    folder_path = os.path.abspath(os.path.expanduser(folder_path))
 
     if not os.path.isdir(folder_path):
         print("Error: The folder does not exist.")
@@ -67,12 +56,12 @@ def organize_files(folder_path):
     moved_count = 0
     skipped_count = 0
     error_count = 0
+    this_script = os.path.abspath(__file__)
 
     print("\nStarting file organization...")
     print("Folder:", folder_path)
 
     try:
-        # Take a snapshot of the folder contents.
         filenames = os.listdir(folder_path)
     except OSError as error:
         print("Could not read the folder:", error)
@@ -81,25 +70,23 @@ def organize_files(folder_path):
     for filename in filenames:
         source_path = os.path.join(folder_path, filename)
 
-        # Organize files only, not subfolders.
-        if not os.path.isfile(source_path):
+        # Skip subfolders, hidden/system files and this script itself.
+        if (
+            not os.path.isfile(source_path)
+            or filename.startswith(".")
+            or os.path.abspath(source_path) == this_script
+        ):
+            skipped_count += 1
             continue
 
         category = get_category(filename)
-        destination_folder = os.path.join(
-            folder_path, category
-        )
+        destination_folder = os.path.join(folder_path, category)
 
         try:
             os.makedirs(destination_folder, exist_ok=True)
-
-            destination_path = os.path.join(
-                destination_folder, filename
+            destination_path = get_unique_path(
+                os.path.join(destination_folder, filename)
             )
-
-            # Protect existing files from being overwritten.
-            destination_path = get_unique_path(destination_path)
-
             shutil.move(source_path, destination_path)
 
             print(f"Moved: {filename} -> {category}/")
@@ -111,7 +98,7 @@ def organize_files(folder_path):
 
     print("\n===== ORGANIZATION SUMMARY =====")
     print("Files moved:", moved_count)
-    print("Files skipped:", skipped_count)
+    print("Items skipped:", skipped_count)
     print("Errors:", error_count)
     print("Organization finished.")
 
@@ -120,16 +107,16 @@ def main():
     print("===== FILE ORGANIZER =====")
     print("This program sorts files into folders by type.")
 
-    default_path = (
-        "/storage/emulated/0/Download/test_files"
-    )
-
     print("\nExample folder path:")
-    print(default_path)
+    print(os.path.join(os.path.expanduser("~"), "Downloads"))
 
-    folder_path = input(
-        "\nEnter folder path to organize: "
-    ).strip().strip('"').strip("'")
+    try:
+        folder_path = input(
+            "\nEnter folder path to organize: "
+        ).strip().strip('"').strip("'")
+    except (EOFError, KeyboardInterrupt):
+        print("\nProgram stopped.")
+        return
 
     if not folder_path:
         print("No folder path entered. Program stopped.")
@@ -140,4 +127,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
