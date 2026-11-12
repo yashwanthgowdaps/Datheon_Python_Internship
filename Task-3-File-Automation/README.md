@@ -1,106 +1,57 @@
-Task 3: File Organizer
+# Task 3: Automated File Organizer & Cleanup Utility
 
-Datheon Python Programming Internship
+A utility that sorts the files in a folder (for example Downloads) into category subfolders based on their extensions.
 
-About the Project
+## Features
 
-The File Organizer is a Python program that automatically organizes files in a selected folder into separate folders based on their file types. It helps keep files organized and makes them easier to find.
+- Inspects every file's extension and creates category subfolders automatically
+- Moves files safely with `shutil.move`
+- **Avoids name collisions**: `report.pdf` becomes `report_1.pdf` instead of overwriting
+- Handles `PermissionError`, `FileExistsError` and other OS errors without crashing
+- Skips subfolders, hidden files and the script itself
+- Logs every action to the screen and to `organizer.log`
+- Prints an execution summary: files relocated, items skipped and errors
 
-Features
+## Categories
 
-- Organizes files based on their extensions.
-- Automatically creates category folders.
-- Supports PDFs, images, audio, videos, documents, spreadsheets, presentations, archives, and other file types.
-- Avoids overwriting existing files with the same name by generating a unique filename.
-- Handles errors during file operations.
-- Skips subfolders, hidden files (names starting with ".") and the script itself.
-- Displays a summary of moved files, skipped items, and errors.
-- Allows the user to enter a folder path.
+| Folder | Extensions |
+|--------|-----------|
+| Documents | .pdf .txt .doc .docx .odt .rtf |
+| Images | .jpg .jpeg .png .gif .bmp .webp .svg |
+| Videos | .mp4 .mkv .avi .mov .wmv |
+| Audio | .mp3 .wav .aac .ogg .flac |
+| Archives | .zip .rar .7z .tar .gz |
+| Code | .py .java .c .cpp .html .css .js |
+| Spreadsheets | .csv .xls .xlsx |
+| Presentations | .ppt .pptx |
+| Others | anything else |
 
-Technologies Used
+To change the mapping, edit `EXTENSION_MAP` in `organizer.py`.
 
-- Python 3
-- "os" module
-- "shutil" module
+## How to Run
 
-Python Concepts Used
+```
+python Task-3-File-Automation/organizer.py
+```
 
-- Variables and data types
-- Lists and dictionaries
-- Functions
-- Loops and conditional statements
-- String operations
-- File and folder handling
-- Exception handling
-- User input and validation
+Enter the folder path when asked, for example `~/Downloads` or `/storage/emulated/0/Download/test_files`.
 
-Folder Categories
+> **Warning:** This program moves files. Try it on a small test folder first.
 
-Folder| File types
-"PDF_Files"| PDF files
-"Images"| JPG, JPEG, PNG, GIF, BMP, WEBP
-"Audio_Files"| MP3, WAV, AAC, OGG
-"Video_Files"| MP4, MKV, AVI, MOV
-"Documents"| TXT, DOC, DOCX, ODT, RTF
-"Spreadsheets"| XLS, XLSX, CSV
-"Presentations"| PPT, PPTX
-"Archives"| ZIP, RAR, 7Z, TAR, GZ
-"Code_Files"| PY, JAVA, C, CPP, HTML, CSS, JS
-"Other_Files"| File types not covered by the categories above
+## Sample Output
 
-The exact extensions supported depend on the categories defined in "file_organizer.py".
-
-How to Run
-
-Requirements
-
-- Python 3 installed
-- Pydroid 3 on Android, or Python installed on a computer
-
-Steps
-
-1. Open "file_organizer.py" in Pydroid 3 (or run "python Task-3-File-Automation/file_organizer.py" on a computer).
-2. Run the program.
-3. Enter the path of the folder you want to organize.
-4. Wait for the program to finish.
-5. Check the generated category folders and the organization summary.
-
-Example Folder Path
-
-For Android:
-
-"/storage/emulated/0/Download/test_files"
-
-For a computer:
-
-"~/Downloads/test_files"
-
-Important: Test the program on a small sample folder first. The program moves files from their original locations, so use a backup when testing.
-
-Sample Output
-
-===== FILE ORGANIZER =====
-This program sorts files into folders by type.
-
-Enter folder path to organize: /storage/emulated/0/Download/test_files
-
-Starting file organization...
-Moved: example.pdf -> PDF_Files/
+```
+Organizing: /home/user/test_files
+Moved: notes.txt -> Documents/
 Moved: photo.jpg -> Images/
-Moved: song.mp3 -> Audio_Files/
+Moved: song.mp3 -> Audio/
 
-===== ORGANIZATION SUMMARY =====
-Files moved: 3
-Items skipped: 0
-Errors: 0
-Organization finished.
+===== EXECUTION SUMMARY =====
+Total files relocated : 3
+Items skipped         : 0
+Errors                : 0
+```
 
-This is an illustrative example; actual results depend on the files in the selected folder.
+## Python Concepts Used
 
-AI Assistance
-
-AI tools were used as a learning aid during development. The program was tested, and the code was reviewed to understand how file organization and Python file-handling operations work.
-
-Conclusion
-
-This project demonstrates how Python can automate file organization using file extensions, directory creation, file movement, and error handling.
+`os.scandir`, `shutil`, `pathlib`, dictionaries, the `logging` module, exception handling, string and path operations.

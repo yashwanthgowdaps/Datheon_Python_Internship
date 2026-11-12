@@ -1,0 +1,130 @@
+{
+  "business": {
+    "name": "TechNest",
+    "bot_name": "PyBot"
+  },
+  "hours": {
+    "0": [9, 18],
+    "1": [9, 18],
+    "2": [9, 18],
+    "3": [9, 18],
+    "4": [9, 18],
+    "5": [10, 16],
+    "6": null
+  },
+  "hours_text": "Monday to Friday: 9:00 AM - 6:00 PM, Saturday: 10:00 AM - 4:00 PM, Sunday: closed.",
+  "intents": [
+    {
+      "name": "greeting",
+      "patterns": ["\\b(hi|hello|hey|hola)\\b", "good (morning|afternoon|evening)"],
+      "responses": [
+        "Hello! Welcome to TechNest support. How can I help you?",
+        "Hi there! Ask me about our products, prices, shipping, returns or opening hours."
+      ],
+      "followup": false
+    },
+    {
+      "name": "hours",
+      "patterns": [
+        "\\b(business|opening|working|store|office) hours\\b",
+        "\\bwhen (do|are) you (open|close)\\b",
+        "\\bwhat time .*(open|close)\\b",
+        "\\bhours\\b"
+      ],
+      "responses": ["Our business hours are: {hours_text}"],
+      "details": "You can also reach us by email at any time and we will reply within one working day."
+    },
+    {
+      "name": "open_now",
+      "patterns": ["\\b(are you|is the store|is it) (open|closed)\\b", "\\bopen (now|today)\\b"],
+      "action": "open_now"
+    },
+    {
+      "name": "products",
+      "patterns": [
+        "\\b(products?|catalog(ue)?|items?)\\b",
+        "\\bwhat (do|can) you (sell|offer)\\b",
+        "\\b(laptops?|phones?|headphones?|accessories|smartwatch(es)?)\\b"
+      ],
+      "responses": [
+        "We sell laptops, smartphones, headphones, smartwatches and accessories such as chargers and cases."
+      ],
+      "details": "Every product ships with a manufacturer warranty. Ask me about pricing or warranty for more."
+    },
+    {
+      "name": "pricing",
+      "patterns": ["\\b(price|prices|pricing|cost|how much|cheap|discount|offers?|sale)\\b"],
+      "responses": [
+        "Accessories start at Rs. 299, headphones at Rs. 1,499, smartphones at Rs. 9,999 and laptops at Rs. 34,999."
+      ],
+      "details": "We run discounts during festival sales. Subscribe to our newsletter to hear about them first."
+    },
+    {
+      "name": "shipping",
+      "patterns": ["\\b(shipping|delivery|deliver|ship|dispatch)\\b"],
+      "responses": [
+        "Standard delivery takes 3-5 working days and is free on orders above Rs. 999."
+      ],
+      "details": "Express delivery (1-2 working days) is available for Rs. 149 in major cities."
+    },
+    {
+      "name": "returns",
+      "patterns": ["\\b(return|returns|refund|refunds|exchange|replace(ment)?|money back)\\b"],
+      "responses": [
+        "You can return any product within 7 days of delivery if it is unused and in its original packaging."
+      ],
+      "details": "Refunds are issued to your original payment method within 5-7 working days after we receive the item."
+    },
+    {
+      "name": "warranty",
+      "patterns": ["\\b(warranty|guarantee|repair|defect(ive)?|broken)\\b"],
+      "responses": [
+        "All products include a 1-year manufacturer warranty. Keep your invoice as proof of purchase."
+      ],
+      "details": "Accidental damage is not covered by the standard warranty."
+    },
+    {
+      "name": "payment",
+      "patterns": ["\\b(pay|payment|payments|upi|card|cod|cash on delivery|emi)\\b"],
+      "responses": [
+        "We accept UPI, debit and credit cards, net banking and cash on delivery. EMI is available on orders above Rs. 5,000."
+      ],
+      "details": "All online payments are processed through secure payment gateways."
+    },
+    {
+      "name": "order_status",
+      "patterns": ["\\b(track|tracking|order status|where is my (order|package|parcel))\\b"],
+      "responses": [
+        "You can track your order from the 'My Orders' page using the tracking link sent to your email."
+      ],
+      "details": "If the link is not working, share your order number with our support team."
+    },
+    {
+      "name": "contact",
+      "patterns": ["\\b(contact|email|phone|call|support|helpline|human|agent|complaint)\\b"],
+      "responses": [
+        "You can email support@technest.example or call 1800-000-000 during business hours."
+      ]
+    },
+    {
+      "name": "thanks",
+      "patterns": ["\\b(thanks|thank you|thx|cheers)\\b"],
+      "responses": ["You're welcome! Happy to help.", "Glad I could help!"],
+      "followup": false
+    },
+    {
+      "name": "help",
+      "patterns": ["^\\s*help\\s*$", "\\bwhat can you (do|help)\\b", "\\bhow (does|do) this work\\b"],
+      "responses": [
+        "I can answer questions about: business hours, products, prices, shipping, returns, warranty, payments, order tracking and contact details. Type 'bye' to exit."
+      ],
+      "followup": false
+    },
+    {
+      "name": "name",
+      "patterns": ["\\b(your name|who are you)\\b"],
+      "responses": ["I'm PyBot, the TechNest virtual support assistant."],
+      "followup": false
+    }
+  ]
+}

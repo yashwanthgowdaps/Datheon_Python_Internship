@@ -1,39 +1,41 @@
-Task 1: Hangman Game
+# Task 1: Hangman Word Guessing Game (Console)
 
-About
+A terminal Hangman game. The player guesses a hidden word one letter at a time and has **6 attempts**.
 
-Hangman is a word-guessing game developed using Python. The player guesses a hidden word one letter at a time and has six attempts to find the correct word.
+## Features
 
-Features
+- Random word selection (`random.choice`)
+- Masked word display, for example `P Y _ H O N`
+- ASCII gallows art that updates with every wrong guess
+- Tracks previously guessed letters
+- Repeated guesses are detected and **not penalised**
+- Input validation (a single letter only)
+- Clear victory and game-over screens
+- Play-again option, and a clean exit on Ctrl+C
+- Optional word list: put a `words.txt` file (one word per line) next to `hangman.py` and the game uses it instead of the built-in list
 
-- Random word selection
-- Hangman drawing that builds up in seven stages (empty gallows to full figure)
-- Shows the letters you have already guessed
-- Input validation (one letter at a time)
-- Repeated-letter detection
-- Win and game-over messages
-- Exits cleanly on Ctrl+C or Ctrl+D
+## How to Run
 
-Technologies Used
+```
+python Task-1-Hangman/hangman.py
+```
 
-- Python
-- Random module
+## Example
 
-Python Concepts Used
+```
+     +---+
+     |   |
+     O   |
+    /|   |
+         |
+    =======
 
-- Variables and lists
-- Loops and conditional statements
-- Functions and constants
-- Raw strings for the ASCII art
-- User input and validation
-- A "main" function with a "__name__" guard
+Word: P Y _ _ _ _
+Attempts remaining: 3
+Guessed letters: a, p, y, z
+Guess a single letter:
+```
 
-How to Run
+## Python Concepts Used
 
-Make sure Python is installed. Open a terminal in the repository's root folder and run:
-
-"python Task-1-Hangman/hangman.py"
-
-AI Assistance
-
-AI tools were used as a learning aid during development. I tested the program and am learning how the code works.
+Lists and strings, loops and conditionals, functions and constants, raw strings, file reading with error handling, input validation.

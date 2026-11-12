@@ -1,30 +1,57 @@
-Datheon Python Programming Internship
+# Datheon Python Programming Internship
 
-A collection of four Python projects developed as part of the Datheon Python Programming Internship, combining hands-on learning with AI-assisted development and vibe coding.
+Four beginner-to-intermediate Python console projects built for the Datheon Python Programming Internship.
 
-Projects
+## Projects
 
-- Task 1 – Hangman Game: Word guessing game with a visual hangman drawing.
-- Task 2 – Stock Portfolio Tracker: Tracks stock holdings and calculates portfolio value.
-- Task 3 – File Automation: Organizes files into folders based on file types.
-- Task 4 – Rule-Based Chatbot: Responds to greetings and simple questions.
+| Task | Project | Script |
+|------|---------|--------|
+| 1 | Hangman Word Guessing Game | `Task-1-Hangman/hangman.py` |
+| 2 | Stock Portfolio Performance Tracker | `Task-2-Stock-Portfolio/portfolio.py` |
+| 3 | Automated File Organizer & Cleanup Utility | `Task-3-File-Automation/organizer.py` |
+| 4 | Rule-Based Interactive Terminal Assistant / Chatbot | `Task-4-Rule-Based-Chatbot/chatbot.py` |
 
-Technologies
+Each task folder has its own README with features, usage and examples.
 
-Python 3 · Pydroid 3 · GitHub · AI coding assistants
+## Repository Structure
 
-Development Approach
+```
+Datheon_Python_Internship/
+├── README.md
+├── Task-1-Hangman/
+│   ├── hangman.py
+│   └── README.md
+├── Task-2-Stock-Portfolio/
+│   ├── portfolio.py
+│   └── README.md
+├── Task-3-File-Automation/
+│   ├── organizer.py
+│   └── README.md
+└── Task-4-Rule-Based-Chatbot/
+    ├── chatbot.py
+    ├── faq.json
+    └── README.md
+```
 
-Used AI-assisted development (vibe coding) to generate and refine code, troubleshoot errors, and improve project functionality while learning Python programming concepts through hands-on testing.
+## How to Run
 
-Learning Outcomes
+Requires Python 3.8 or newer. No third-party packages are needed. From the repository root:
 
-Practised Python fundamentals, problem-solving, debugging, file handling, automation, and building interactive console applications.
+```
+python Task-1-Hangman/hangman.py
+python Task-2-Stock-Portfolio/portfolio.py
+python Task-3-File-Automation/organizer.py
+python Task-4-Rule-Based-Chatbot/chatbot.py
+```
 
-Note
+On some systems use `python3` instead of `python`. The projects also run in Pydroid 3 on Android.
 
-Stock prices use sample data. Test the file organizer on a sample folder before organizing important files.
+## Technologies
 
----
+Python 3 standard library only: `random`, `os`, `csv`, `json`, `re`, `shutil`, `pathlib`, `logging`, `datetime`.
 
-Program: Datheon Python Programming Internship
+## Notes
+
+- Stock prices are sample data, not live market prices.
+- Test the file organizer on a small sample folder first. It moves files.
+- AI tools were used as a learning aid during development. I tested every program and reviewed the code to understand how it works.

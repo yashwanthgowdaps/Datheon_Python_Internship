@@ -1,90 +1,59 @@
-Task 2: Stock Portfolio Tracker
+# Task 2: Stock Portfolio Performance Tracker
 
-About
+A console application that tracks stock holdings, calculates performance against what you paid, and saves the results to a CSV file.
 
-The Stock Portfolio Tracker is a Python-based console application developed as part of the Datheon Python Programming Internship.
+## Features
 
-It allows users to add stocks to a portfolio, view their holdings, calculate the total portfolio value, and save portfolio details to a text file.
+- Add stocks by ticker, number of shares and **buy price**
+- Buying the same stock again updates the average buy price
+- Looks up the current price from a sample price table
+- Calculates, for each holding: invested amount, market value, gain/loss and **gain/loss %**
+- Calculates total invested, total value and overall gain/loss %
+- Automatically writes **`portfolio_summary.csv`** after every change, and on exit or on request (menu option 3)
+- Validates tickers, share counts and prices
 
-Features
+## Sample Prices
 
-- Displays available stocks and their sample prices.
-- Allows users to add stocks by entering a stock ticker and quantity.
-- Supports multiple stock holdings.
-- Calculates the value of each stock holding.
-- Displays the total portfolio value.
-- Validates stock tickers and share quantities.
-- Saves portfolio details to "portfolio.txt" (UTF-8, so the rupee symbol is safe on any system).
-- Uses one shared function to build the report, so the screen and the saved file always match.
-- Provides a menu-driven interface to view, save, and exit.
+Prices are sample data, not live market prices.
 
-Available Stocks
+| Ticker | Price |
+|--------|-------|
+| AAPL | ₹180.00 |
+| TSLA | ₹250.00 |
+| GOOGL | ₹150.00 |
+| MSFT | ₹420.00 |
+| AMZN | ₹175.00 |
+| NVDA | ₹480.00 |
 
-The program uses sample prices in Indian rupees (₹).
+To use more tickers, add a `sample_prices.csv` file next to `portfolio.py` with the columns `ticker,price`.
 
-Stock Ticker| Sample Price
-AAPL| ₹180.00
-TSLA| ₹250.00
-GOOGL| ₹150.00
-MSFT| ₹420.00
+## How to Run
 
-Note: These are sample prices used by the program, not live market prices.
+```
+python Task-2-Stock-Portfolio/portfolio.py
+```
 
-Technologies Used
+## Example
 
-- Python
-- "os" module for file-related operations
+Buy 10 AAPL at ₹150 and 5 AAPL at ₹200 (average buy ₹166.67). The current price is ₹180:
 
-Python Concepts Used
+```
+AAPL  (15 shares)
+  Average buy price : ₹166.67
+  Current price     : ₹180.00
+  Invested          : ₹2,500.00
+  Market value      : ₹2,700.00
+  Gain / Loss       : ₹200.00 (+8.00%)
+```
 
-- Variables and dictionaries
-- Functions
-- Conditional statements
-- Loops
-- User input and validation
-- Exception handling (invalid input, Ctrl+C, file errors)
-- File handling
+## Output File: `portfolio_summary.csv`
 
-How to Run
+```
+Ticker,Shares,Avg Buy Price,Current Price,Invested,Market Value,Gain/Loss,Gain/Loss %
+AAPL,15,166.67,180.00,2500.00,2700.00,200.00,8.00
+TOTAL,,,,2500.00,2700.00,200.00,8.00
+```
 
-1. Make sure Python is installed on your computer.
-2. Open a terminal in the main repository folder.
-3. Run the following command:
+## Python Concepts Used
 
-python Task-2-Stock-Portfolio/stock_portfolio.py
-
-If your Python installation uses "python3", run:
-
-python3 Task-2-Stock-Portfolio/stock_portfolio.py
-
-How to Use
-
-1. Run the program.
-2. Select 1 to add a stock.
-3. Enter a valid stock ticker, such as "AAPL".
-4. Enter the number of shares.
-5. Select 2 to view your portfolio and total value.
-6. Select 3 to save your portfolio to "portfolio.txt".
-7. Select 4 to exit the application.
-
-Example
-
-If you add 50 shares of AAPL at the sample price of ₹180 per share:
-
-- Stock ticker: AAPL
-- Number of shares: 50
-- Sample price per share: ₹180
-- Holding value: ₹9,000.00
-
-Output File
-
-The program saves portfolio details in "portfolio.txt" when the save option is selected.
-
-AI Assistance
-
-AI tools were used as a learning aid during development. The program was tested, and I am learning how its code works.
-
-Internship
-
-Program: Datheon Python Programming Internship
-Task: Task 2 — Stock Portfolio Tracker
+Dictionaries, functions, loops, input validation, exception handling, and file handling with the built-in `csv` module.
